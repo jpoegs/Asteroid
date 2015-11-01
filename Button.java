@@ -6,14 +6,13 @@ import java.awt.Point;
 import java.util.Random;
 import java.awt.event.MouseEvent;
 
-
 /**
- *  A DraggableSlider that display a interactive slider.
+ *  A Button class.
  * 
- * Assignment: Program8
+ * Assignment: Program9
  *  
  * @author Jeffrey Poegel
- * @version October 25, 2015
+ * @version October 29, 2015
  * 
  */
 
@@ -24,13 +23,12 @@ public class Button extends TextBox
     
     /**
      * Button Constructor.
-     * 
      */
     public Button( AsteroidApp a ) 
     {
         super();
-        setSize( 50, 50 );
-        setColor(Color.GRAY.brighter());
+        setSize( 100, 80 );
+        setColor( Color.GRAY.brighter() );
         setText( "Reset" );
         app = a;
     }

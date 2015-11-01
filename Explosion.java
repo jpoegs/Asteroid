@@ -1,68 +1,100 @@
 
-import wheelsunh.users.*;
-
+import java.util.ArrayList;
 import java.util.Random;
-import java.awt.Color;
 import java.awt.Point;
 
-public class Explosion extends Ellipse
+/**
+ *  A Explosion class is a collection of particles.
+ * 
+ * Assignment: Program9
+ *  
+ * @author Jeffrey Poegel
+ * @version November 1, 2015
+ * 
+ */
+
+public class Explosion
 {
+    private ArrayList<Particle> explosion = new ArrayList<Particle>();
     private Random random;
+    private int explosionLife;
     private Point location;
-    private int particleLife;
-    private double x, y;
-    private double dx, dy;
-    private Color color;
-    
-    public Explosion(int x, int y)
+    private int time = 0;
+
+    /**
+     * Explosion constructor.
+     * 
+     * @param x location
+     * @param y location
+     */
+    public Explosion( int x, int y )
     {
-        super(x, y);
+        location = new Point( x, y );
         random = new Random();
-        setSize(random.nextInt(10) + 2, random.nextInt(10) + 2);
-        
-        location = new Point(x, y);
-        
-        this.x = x;
-        this.y = y;
-        
-        dx = random.nextDouble() - 0.5;
-        dy = random.nextDouble() - 0.5;
-        
-        int c = random.nextInt(3);
-        switch (c)
-        {
-            case 0:
-                setColor(Color.RED);
-                break;
-            case 1:
-                setColor(Color.ORANGE);
-                break;
-            case 2:
-                setColor(Color.BLACK);
-                break;
-            default:
-                setColor(Color.RED);
-                break;
-                
-        }
+        explosionLife = random.nextInt( 50 ) + 150;
+        explosion.add( new Particle( location.x, location.y ) );
     }
-    
+
+    /**
+     * Causes the particles to move slightly when called by animate.
+     */
     public void explode()
-    {
-        x += dx;
-        y += dy;
-        setLocation((int)x, (int)y);
-        particleLife++;
+    {   
+        explosion.add( new Particle( location.x, location.y ) );
+        for(Particle p: explosion)
+        {
+            if( time > p.getParticleLife() )
+            {
+            p.hide();
+        }
+        else
+        {
+            p.explode();
+        }
+        p.explode();
     }
-    
-    public int getParticleLife()
-    {
-        return particleLife;
+
+    time++;
     }
-    
+
+    /**
+     * Gets how long the explosion will last.
+     * 
+     * @return explosionLife
+     */
+    public int getExplosionLife()
+    {
+        return explosionLife;
+    }
+
+    /**
+     * Gets the location where the explosion originated from.
+     * 
+     * @return location
+     */
     public Point getLocation()
     {
         return location;
     }
 
+    /**
+     * Gets the amount of time passed since the first particle created.
+     * 
+     * @return time
+     */
+    public int getTime()
+    {
+        return time;
+    }
+
+    /**
+     * Hides all the particles in the explosion.
+     */
+    public void hide()
+    {
+        for( Particle p: explosion )
+        {
+            p.hide();
+        }
+    }
 }
